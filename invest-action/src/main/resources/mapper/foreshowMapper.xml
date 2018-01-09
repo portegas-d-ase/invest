@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxit.invest.dao.ForeshowDao">
+	
+	<resultMap type="com.lxit.p2p.bean.Foreshow" id="foreshowMap">
+		<id column="id" property="foreshowId"/>
+		<result column="headline" property="headline"/>
+		<result column="creationor" property="creationor"/>
+		<result column="issueTime" property="issueTime"/>
+		<result column="finishTime" property="finishTime"/>
+		<result column="state" property="state"/>
+		<result column="registTime" property="registTime"/>
+		<result column="modifier" property="modifier"/>
+		<result column="modificationTime" property="modificationTime"/>
+		<result column="postscript" property="postscript"/>
+	</resultMap>
+	<select id="queryForeshow" resultMap="foreshowMap">
+		select f.* from foreshow f left join dictionaries d on f.state=d.id where f.state=1
+	</select>
+
+
+</mapper>

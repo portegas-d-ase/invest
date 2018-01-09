@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxit.invest.dao.ApplyloansDao">
+	
+	<resultMap type="com.lxit.p2p.bean.Applyloans" id="applyloansMap">
+		<id column="id" property="applyLoansId"/>
+		<result column="deadline" property="deadline"/>
+		<result column="money" property="money"/>
+		<result column="purpose" property="purpose"/>
+		<result column="describe" property="describe"/>
+		<result column="rate" property="rate"/>
+		<result column="way" property="way"/>
+		<result column="type" property="type"/>
+		<result column="state" property="state"/>
+		<result column="time" property="time"/>
+		<result column="startTime" property="startTime"/>
+		<result column="fullTime" property="fullTime"/>
+		<result column="loanTime" property="loanTime"/>
+		<result column="creationTime" property="creationTime"/>
+		<result column="modifier" property="modifier"/>
+		<result column="modificationTime" property="modificationTime"/>
+		<result column="postscript" property="postscript"/>
+		<result column="creater" property="creater"/>
+		<association property="user" column="userId" select="com.lxit.invest.dao.UserDao.selectById"></association>
+	</resultMap> 
+
+	<select id="countLoans" resultType="int">
+		select count(1) from applyloans where state not in('审核中','申请失败')
+	</select>
+	
+	<select id="selectBysome" resultMap="applyloansMap" parameterType="java.util.Map">
+		select * from applyloans where 1=1
+		<if test="begin != null and begin !='' and finals != null and finals !=''">
+		 and deadline BETWEEN #{begin} and #{finals}
+		</if>
+		<if test="state != null and state != ''">
+		 and state = #{state} 
+		</if>
+		<if test="starNum != null and starNum != '' and endNum != null and endNum != '' ">
+		 and rate BETWEEN #{starNum} and #{endNum}
+		</if>
+		<if test="type != null and type != ''">
+		 and type LIKE CONCAT('%', #{type}, '%')
+		</if>
+		limit #{pageIndex},#{pageSize}
+	</select>
+	
+	<select id="selectBysomecount" resultType="int" parameterType="java.util.Map">
+		select count(1) from applyloans where 1=1
+		<if test="begin != null and begin !='' and final != null and final !=''">
+		 and deadline BETWEEN #{begin} and #{final}
+		</if>
+		<if test="state != null and state != ''">
+		 and state = #{state} 
+		</if>
+		<if test="starNum != null and starNum != '' and endNum != null and endNum != '' ">
+		 and rate BETWEEN #{starNum} and #{endNum}
+		</if>
+		<if test="type != null and type != ''">
+		 and type LIKE CONCAT('%', #{type}, '%')
+		</if>
+	</select>
+	
+
+</mapper>

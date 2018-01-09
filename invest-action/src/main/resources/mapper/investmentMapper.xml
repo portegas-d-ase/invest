@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxit.invest.dao.InvestmentDao">
+	
+	<resultMap type="com.lxit.p2p.bean.Investment" id="investmentMap">
+		<id column="id" property="investmentId"/>
+		<result column="buyPortion" property="buyPortion"/>
+		<result column="money" property="money"/>
+		<result column="registTime" property="registTime"/>
+		<result column="startingPortion" property="startingPortion"/>
+		<result column="loansState" property="loansState"/>
+		<result column="count" property="count"/>
+		<result column="type" property="type"/>
+		<result column="creationor" property="creationor"/>
+		<result column="creationTime" property="creationTime"/>
+		<result column="modifier" property="modifier"/>
+		<result column="modificationTime" property="modificationTime"/>
+		<result column="postscript" property="postscript"/>
+		<association property="product" column="productId" select="com.lxit.invest.dao.ProductDao.selectById"></association>
+		<association property="user" column="userId" select="com.lxit.invest.dao.UserDao.selectById"></association>
+	</resultMap>
+	<select id="inputMoney" resultType="java.lang.String" parameterType="int">
+		select SUM(i.money)/(select collectMoney from product where id =#{id})*100 from investment i where productId=#{id}
+	</select>
+
+	<select id="countInvest" resultType="int">
+		select count(1) from investment
+	</select>
+	
+	<select id="orderListTotal" resultMap="investmentMap">
+		select id,productId,buyPortion,SUM(money) as money,registTime,userId,startingPortion,count,type from investment GROUP BY userId ORDER BY money desc
+	</select>
+	
+	<select id="orderByMonth" resultMap="investmentMap">
+		select id,productId,buyPortion,SUM(money) as money,registTime,userId,startingPortion,count,type from investment where MONTH(registTime) = MONTH(NOW()) GROUP BY userId ORDER BY money desc
+	</select>
+	
+	<select id="percentageBymoney" resultType="java.lang.String" parameterType="int">
+		select SUM(money)/(select SUM(money) from investment)*100 from investment WHERE userId = #{user.userId}
+	</select>
+
+</mapper>

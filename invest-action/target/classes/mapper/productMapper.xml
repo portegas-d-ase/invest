@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxit.invest.dao.ProductDao">
+
+	<resultMap type="com.lxit.p2p.bean.Product" id="productMap">
+		<id column="id" property="productId" />
+		<result column="name" property="name" />
+		<result column="introduce" property="introduce" />
+		<result column="rate" property="rate" />
+		<result column="startTime" property="startTime" />
+		<result column="endTime" property="endTime" />
+		<result column="state" property="state" />
+		<result column="collectMoney" property="collectMoney" />
+		<result column="lockPeriod" property="lockPeriod" />
+		<result column="periods" property="periods" />
+		<result column="postscript" property="postscript" />
+		<result column="modeRepayment" property="modeRepayment" />
+		<result column="startingPortion" property="startingPortion" />
+		<result column="creationor" property="creationor" />
+		<result column="creationTime" property="creationTime" />
+		<result column="modifier" property="modifier" />
+		<result column="modificationTime" property="modificationTime" />
+	</resultMap>
+	<select id="selectById" resultMap="productMap" parameterType="int">
+		select * from product where id = #{productId}
+	</select>
+	<select id="newPerson" resultMap="productMap">
+		select * from product where
+		startTime &lt;= NOW() and endTime &gt;= NOW() and name='新手标'
+	</select>
+	<select id="MonthRose" resultMap="productMap">
+		select * from product where
+		startTime &lt;= NOW() and endTime &gt;= NOW() and name='月月升'
+	</select>
+	<select id="CarrieTreasure" resultMap="productMap">
+		select * from product where
+		startTime &lt;= NOW() and endTime &gt;= NOW() and name='嘉利宝'
+	</select>
+	<select id="Inabundance" resultMap="productMap">
+		select * from product where
+		startTime &lt;= NOW() and endTime &gt;= NOW() and name='季季丰'
+	</select>
+	<select id="PayTreasure" resultMap="productMap">
+		select * from product where
+		startTime &lt;= NOW() and endTime &gt;= NOW() and name='加薪宝'
+	</select>
+	
+	<select id="projectList" resultMap="productMap">
+		select * from product where name !='新手标' and startTime &lt;= NOW() and endTime &gt;= NOW() 
+	</select>
+
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxit.invest.dao.UserDao">
+	
+	<resultMap type="com.lxit.p2p.bean.User" id="userMap">
+		<id column="id" property="userId"/>
+		<result column="nickName" property="nickName"/>
+		<result column="pass" property="pass"/>
+		<result column="referrer" property="referrer"/>
+		<result column="registTime" property="registTime"/>
+		<result column="head" property="head"/>
+		<result column="idCard" property="idCard"/>
+		<result column="email" property="email"/>
+		<result column="realName" property="realName"/>
+		<result column="LastTime" property="LastTime"/>
+		<result column="isNew" property="isNew"/>
+		<result column="reputation" property="reputation"/>
+		<result column="payment" property="payment"/>
+		<result column="money" property="money"/>
+		<result column="creater" property="creater"/>
+		<result column="creationTime" property="creationTime"/>
+		<result column="modifier" property="modifier"/>
+		<result column="modificationTime" property="modificationTime"/>
+		<result column="postscript" property="postscript"/>
+	</resultMap>
+	<select id="selectById" resultMap="userMap" parameterType="int">
+		select * from user where id=#{userId}
+	</select>
+	
+	<select id="countUser" resultType="int">
+		select count(1) from user
+	</select>
+
+
+</mapper>
