@@ -21,20 +21,23 @@
 		<result column="creationTime" property="creationTime" />
 		<result column="modifier" property="modifier" />
 		<result column="modificationTime" property="modificationTime" />
+		<result column="zonfene" property="zonfene" />
+		<result column="startings" property="startings" />
 	</resultMap>
 	<select id="selectById" resultMap="productMap" parameterType="int">
-		select * from product where id = #{productId}
+		select p.*,(select collectMoney/100 from product where id =#{productId}) as zonfene,(p.collectMoney -(select sum(money) from investment where productId = #{productId}))/100 as startings from product p where p.id =#{productId}
 	</select>
 	<select id="newPerson" resultMap="productMap">
 		select * from product where
-		startTime &lt;= NOW() and endTime &gt;= NOW() and name='新手标'
+		startTime &lt;= NOW() and endTime &gt;= NOW() and name='新手标' and state='发布中'
 	</select>
 	<select id="MonthRose" resultMap="productMap">
 		select * from product where
 		startTime &lt;= NOW() and endTime &gt;= NOW() and name='月月升'
 	</select>
 	<select id="CarrieTreasure" resultMap="productMap">
-		select * from product where
+		select * from product
+		where
 		startTime &lt;= NOW() and endTime &gt;= NOW() and name='嘉利宝'
 	</select>
 	<select id="Inabundance" resultMap="productMap">
@@ -45,9 +48,10 @@
 		select * from product where
 		startTime &lt;= NOW() and endTime &gt;= NOW() and name='加薪宝'
 	</select>
-	
+
 	<select id="projectList" resultMap="productMap">
-		select * from product where name !='新手标' and startTime &lt;= NOW() and endTime &gt;= NOW() 
+		select * from product where
+		name !='新手标' and startTime &lt;= NOW() and endTime &gt;= NOW() and state='发布中'
 	</select>
 
 </mapper>

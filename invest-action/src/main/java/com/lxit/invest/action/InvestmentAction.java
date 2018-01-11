@@ -121,4 +121,12 @@ public class InvestmentAction {
 		return investmentService.percentageBymoney(userId);
 		
 	}
+	
+	@RequestMapping("/query")
+	public List<Investment> percen(@RequestParam(defaultValue="1",value="productId")int productId){
+		return investmentService.queryByProductId(productId);
+		
+	}
+	
+	
 }

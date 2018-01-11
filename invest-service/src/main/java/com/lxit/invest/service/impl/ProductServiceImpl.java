@@ -33,8 +33,7 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public Product CarrieTreasure() {
-		
+	public Product CarrieTreasure() {		
 		return productDao.CarrieTreasure();
 	}
 
@@ -53,7 +52,16 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public Product selectById(int productId) {
 		
-		return productDao.selectById(productId);
+		Product product = productDao.selectById(productId);
+		/*String[] fene ;
+		String[] star ;
+		if (product.getZonfene()!= null && product.getStartings()!=null) {
+			fene = product.getZonfene().split(".");
+			product.setZonfene(fene[0]);
+			star = product.getStartings().split(".");
+			product.setStartings(star[0]);
+		}*/
+		return product;
 	}
 
 	@Override

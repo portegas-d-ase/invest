@@ -35,7 +35,7 @@ public class ProductAction {
 	}
 	
 	@RequestMapping("/getProductById")
-	public Product getProduct(@RequestParam int productId){
+	public Product getProduct(@RequestParam(defaultValue="1",value="productId") int productId){
 		return productService.selectById(productId);
 	}
 	

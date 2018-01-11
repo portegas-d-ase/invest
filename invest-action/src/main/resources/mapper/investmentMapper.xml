@@ -15,7 +15,7 @@
 		<result column="creationor" property="creationor"/>
 		<result column="creationTime" property="creationTime"/>
 		<result column="modifier" property="modifier"/>
-		<result column="modificationTime" property="modificationTime"/>
+		<result column="modificationTime" property="modificat ionTime"/>
 		<result column="postscript" property="postscript"/>
 		<association property="product" column="productId" select="com.lxit.invest.dao.ProductDao.selectById"></association>
 		<association property="user" column="userId" select="com.lxit.invest.dao.UserDao.selectById"></association>
@@ -38,6 +38,10 @@
 	
 	<select id="percentageBymoney" resultType="java.lang.String" parameterType="int">
 		select SUM(money)/(select SUM(money) from investment)*100 from investment WHERE userId = #{user.userId}
+	</select>
+	
+	<select id="queryByProductId" resultMap="investmentMap" parameterType="int">
+		select * from investment where productId = #{productId}
 	</select>
 
 </mapper>

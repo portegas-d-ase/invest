@@ -56,4 +56,11 @@ public class InvestmentServiceImpl implements InvestmentService{
 		return investmentDao.percentageBymoney(userId);
 	}
 
+
+	@Override
+	public List<Investment> queryByProductId(int productId) {
+		// TODO Auto-generated method stub
+		return investmentDao.queryByProductId(productId);
+	}
+
 }

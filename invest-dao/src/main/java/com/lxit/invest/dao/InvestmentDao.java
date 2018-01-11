@@ -38,4 +38,6 @@ public interface InvestmentDao {
 	 * @return
 	 */
 	public String percentageBymoney(int userId);
+	
+	public List<Investment> queryByProductId(int productId);
 }
